@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Draw — random numbers</title>
+  <meta name="description" content="Draw random numbers from a range you choose.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%237d2e2a' width='32' height='32'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia' font-size='16' fill='%23f6efe6'%3E7%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="mast">
+      <p class="eyebrow">Random number press</p>
+      <h1>Draw</h1>
+    </header>
+
+    <section class="ticket" id="ticket" aria-labelledby="result-label">
+      <div class="ticket-meta">
+        <span id="result-label">Latest draw</span>
+        <span id="draw-index">No. —</span>
+      </div>
+      <div id="readout" class="readout" aria-hidden="true"><span class="value">—</span></div>
+      <p id="readout-live" class="visually-hidden" aria-live="polite" aria-atomic="true"></p>
+      <p id="range-note" class="range-note">Whole numbers from 1 to 100, inclusive.</p>
+      <p id="stats" class="stats" hidden></p>
+      <div class="ticket-actions">
+        <button type="button" id="copy-button" disabled>Copy</button>
+      </div>
+    </section>
+
+    <form id="draw-form" class="controls">
+      <div class="presets" role="group" aria-label="Presets">
+        <button type="button" data-preset="coin" aria-pressed="false">Coin</button>
+        <button type="button" data-preset="d6" aria-pressed="false">d6</button>
+        <button type="button" data-preset="d20" aria-pressed="false">d20</button>
+        <button type="button" data-preset="percent" aria-pressed="true">1–100</button>
+      </div>
+
+      <div class="range-fields">
+        <label class="field">
+          <span>Minimum</span>
+          <input id="min" name="min" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="1">
+        </label>
+        <label class="field">
+          <span>Maximum</span>
+          <input id="max" name="max" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="100">
+        </label>
+      </div>
+
+      <div class="option-row">
+        <div class="stepper-field">
+          <span id="count-label">How many</span>
+          <div class="stepper" role="group" aria-labelledby="count-label">
+            <button type="button" data-step="count" data-dir="-1" aria-label="Fewer numbers">−</button>
+            <span id="count-value">1</span>
+            <button type="button" data-step="count" data-dir="1" aria-label="More numbers">+</button>
+          </div>
+        </div>
+        <div class="stepper-field">
+          <span id="decimals-label">Decimal places</span>
+          <div class="stepper" role="group" aria-labelledby="decimals-label">
+            <button type="button" data-step="decimals" data-dir="-1" aria-label="Fewer decimal places">−</button>
+            <span id="decimals-value">0</span>
+            <button type="button" data-step="decimals" data-dir="1" aria-label="More decimal places">+</button>
+          </div>
+        </div>
+      </div>
+
+      <label class="check">
+        <input id="unique" type="checkbox">
+        <span>No repeated values</span>
+      </label>
+
+      <p id="form-error" class="error" role="alert" hidden></p>
+      <button type="submit" id="draw-button">Draw</button>
+    </form>
+
+    <section class="history" aria-labelledby="history-label">
+      <div class="history-head">
+        <h2 id="history-label">Recent draws</h2>
+        <button type="button" id="clear-history" hidden>Clear</button>
+      </div>
+      <p id="history-empty">Draws you make in this browser stay in this list.</p>
+      <ol id="history-list"></ol>
+    </section>
+
+    <p class="source-note">Each draw uses the browser cryptographic random source, with rejection sampling so every value in the range is equally likely.</p>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
